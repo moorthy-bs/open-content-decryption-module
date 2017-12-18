@@ -17,7 +17,11 @@
 /*
  * based on Keith Gaughan - Shared Memory and Semaphores - March 22, 2003
  */
+#ifdef WPE
+#include "shmemsem_helper.h"
+#else
 #include "media/cdm/ppapi/external_open_cdm/src/com/common/shmemsem/shmemsem_helper.h"
+#endif
 
 /**
  * Allocates a shared memory segment.
@@ -40,7 +44,11 @@ int AllocateSharedMemory(int n)
 void* MapSharedMemory(int id)
 {
     void* addr;
+#ifdef WPE
+    assert(id != -1); // Idiot-proof the call.
+#else   
     assert(id != 0); // Idiot-proof the call.
+#endif
     addr = shmat(id, NULL, 0);  // Attach the segment...
     shmctl(id, IPC_RMID, NULL); // ...and mark it destroyed.
     return addr;

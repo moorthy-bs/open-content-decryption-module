@@ -18,7 +18,13 @@
 #define MEDIA_CDM_PPAPI_EXTERNAL_OPEN_CDM_CDM_OPEN_CDM_PLATFORM_COMMON_H_
 
 #include <string>
+#if WPE
+#include <stddef.h>
+#include <limits.h>
+#include <stdint.h>
+#else	// Chrome
 #include "base/basictypes.h"
+#endif
 
 namespace media {
 
@@ -32,7 +38,11 @@ enum PLATFORM_CALL_STATE {
 
 struct PlatformResponse {
   PLATFORM_CALL_STATE platform_response;
+#if WPE
+  uint32_t sys_err;
+#else	// Chrome
   int32 sys_err;
+#endif
 };
 
 struct OpenCdmPlatformSessionId {
@@ -42,14 +52,35 @@ struct OpenCdmPlatformSessionId {
 
 struct MediaKeysResponse : public PlatformResponse {
 };
+#if WPE
+struct MediaKeySetServerCertificateResponse : public PlatformResponse {
+};
+struct MediaKeyTypeResponse : public PlatformResponse {
+};
+struct MediaKeysCreateSessionResponse : public PlatformResponse {
+  OpenCdmPlatformSessionId session_id;
+};
+#else
 struct MediaKeysCreateSessionResponse : public PlatformResponse {
   OpenCdmPlatformSessionId session_id;
   std::string licence_req;
 };
+#endif
+
+#if WPE
+struct MediaKeySessionLoadResponse : public PlatformResponse {
+};
+struct MediaKeySessionRemoveResponse : public PlatformResponse {
+};
+struct MediaKeySessionCloseResponse : public PlatformResponse {
+};
+#endif
 struct MediaKeysLoadSessionResponse : public PlatformResponse {
 };
+
 struct MediaKeySessionUpdateResponse : public PlatformResponse {
 };
+
 struct MediaKeySessionReleaseResponse : public PlatformResponse {
 };
 

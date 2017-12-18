@@ -16,6 +16,10 @@ struct rpc_request_mediakeys {
     char key_system <>;
 };
 
+struct rpc_request_certificate {
+    uint8_t certificate <>;
+};
+
 struct rpc_request_callback_info {
     char hostname <>;
     uint64_t prog_num;
@@ -23,11 +27,17 @@ struct rpc_request_callback_info {
 };
 
 struct rpc_request_create_session {
+#ifdef WPE
+    int32_t license_type;
+#endif
     char init_data_type <>;
     uint8_t init_data <>;
     rpc_request_callback_info callback_info;
 };
 
+struct rpc_request_session_load {
+    char session_id <>;
+};
 struct rpc_request_load_session {
     char session_id <>;
 };
@@ -35,6 +45,14 @@ struct rpc_request_load_session {
 struct rpc_request_session_update {
     char session_id <>;
     uint8_t key <>;
+};
+
+struct rpc_request_session_remove {
+    char session_id <>;
+};
+
+struct rpc_request_session_close {
+    char session_id <>;
 };
 
 struct rpc_request_session_release {
@@ -66,10 +84,21 @@ program OPEN_CDM {
     version OPEN_CDM_EME_5 {
     rpc_response_generic RPC_OPEN_CDM_IS_TYPE_SUPPORTED(rpc_request_is_type_supported) = 1;
     rpc_response_generic RPC_OPEN_CDM_MEDIAKEYS(rpc_request_mediakeys) = 2;
+#ifdef WPE
+    rpc_response_generic RPC_OPEN_CDM_MEDIAKEYS_SET_SERVER_CERTIFICATE(rpc_request_certificate) = 3;
+    rpc_response_create_session RPC_OPEN_CDM_MEDIAKEYS_CREATE_SESSION(rpc_request_create_session) = 4;
+    rpc_response_generic RPC_OPEN_CDM_MEDIAKEYSESSION_LOAD(rpc_request_session_load) = 5;
+    rpc_response_generic RPC_OPEN_CDM_MEDIAKEYSESSION_UPDATE(rpc_request_session_update) = 6;
+    rpc_response_generic RPC_OPEN_CDM_MEDIAKEYSESSION_REMOVE(rpc_request_session_remove) = 7;
+    rpc_response_generic RPC_OPEN_CDM_MEDIAKEYSESSION_CLOSE(rpc_request_session_close) = 8;
+    rpc_response_generic RPC_OPEN_CDM_MEDIAKEYSESSION_RELEASE(rpc_request_session_release) = 9;
+    rpc_response_generic RPC_OPEN_CDM_MEDIAENGINE(rpc_request_mediaengine_data) = 10;
+#else
     rpc_response_create_session RPC_OPEN_CDM_MEDIAKEYS_CREATE_SESSION(rpc_request_create_session) = 3;
     rpc_response_generic RPC_OPEN_CDM_MEDIAKEYS_LOAD_SESSION(rpc_request_load_session) = 4;
     rpc_response_generic RPC_OPEN_CDM_MEDIAKEYSESSION_UPDATE(rpc_request_session_update) = 5;
     rpc_response_generic RPC_OPEN_CDM_MEDIAKEYSESSION_RELEASE(rpc_request_session_release) = 6;
     rpc_response_generic RPC_OPEN_CDM_MEDIAENGINE(rpc_request_mediaengine_data) = 7;
+#endif
     } = 1;
 } = 0x61135687; /* FAMEFHG */

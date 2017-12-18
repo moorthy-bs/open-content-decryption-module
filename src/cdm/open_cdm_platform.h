@@ -18,8 +18,13 @@
 #define MEDIA_CDM_PPAPI_EXTERNAL_OPEN_CDM_CDM_OPEN_CDM_PLATFORM_H_
 
 #include <string>
+#if WPE
+#include "open_cdm_platform_common.h"
+#include "open_cdm_platform_com_callback_receiver.h"
+#else	//Chromium
 #include "media/cdm/ppapi/external_open_cdm/src/cdm/open_cdm_platform_common.h"
 #include "media/cdm/ppapi/external_open_cdm/src/cdm/open_cdm_platform_com_callback_receiver.h"
+#endif
 
 namespace media {
 
@@ -31,25 +36,57 @@ class OpenCdmPlatform {
   // EME equivalent: new MediaKeys()
   virtual MediaKeysResponse MediaKeys(std::string key_system) = 0;
 
+#if WPE
   // EME equivalent: media_keys_.createSession()
+  virtual MediaKeysCreateSessionResponse MediaKeysCreateSession(
+      int license_type, const std::string& init_data_type,
+      const uint8_t* init_data, int init_data_length) = 0;
+#else	//chrome
   virtual MediaKeysCreateSessionResponse MediaKeysCreateSession(
       const std::string& init_data_type, const uint8_t* init_data,
       int init_data_length) = 0;
+#endif
 
+#if WPE
   // EME equivalent: media_keys_.loadSession()
+  virtual MediaKeySessionLoadResponse MediaKeySessionLoad(
+      char *session_id_val, uint32_t session_id_len) = 0;
+#else	//chrome
   virtual MediaKeysLoadSessionResponse MediaKeysLoadSession(
       char *session_id_val, uint32_t session_id_len) = 0;
+#endif
 
+#if WPE
   // EME equivalent: media_key_session_.update()
+  virtual MediaKeySessionUpdateResponse MediaKeySessionUpdate(
+      const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,
+      uint32_t session_id_len) = 0;
+#else
   virtual MediaKeySessionUpdateResponse MediaKeySessionUpdate(
       const uint8 *pbKey, uint32 cbKey, char *session_id_val,
       uint32_t session_id_len) = 0;
+#endif
 
+#if WPE
+  // EME equivalent: media_key_session_.setServerCertificate()
+  virtual MediaKeySetServerCertificateResponse MediaKeySetServerCertificate(
+      const uint8_t *pbServerCert, uint32_t cbServerCert) = 0;
+
+  // EME equivalent: media_key_session_.remove()
+  virtual MediaKeySessionRemoveResponse MediaKeySessionRemove(
+      char *session_id_val, uint32_t session_id_len) = 0;
+
+  // EME equivalent: media_key_session_.close()
+  virtual MediaKeySessionCloseResponse MediaKeySessionClose(
+      char *session_id_val, uint32_t session_id_len) = 0;
+
+  //EME equivalent : media_key_.isTypeSupported()
+  virtual MediaKeyTypeResponse IsTypeSupported(const std::string&,
+                                            const std::string&) = 0;
+#endif
   // EME equivalent: media_key_session_.release()
   virtual MediaKeySessionReleaseResponse MediaKeySessionRelease(
       char *session_id_val, uint32_t session_id_len) = 0;
-
-
   virtual ~OpenCdmPlatform() {
   }
   OpenCdmPlatform(OpenCdmPlatformComCallbackReceiver *callback_receiver_);

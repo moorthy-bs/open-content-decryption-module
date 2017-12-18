@@ -20,8 +20,13 @@
 #include <rpc/rpc.h>
 #include <string>
 
+#ifdef WPE
+#include <shmemsem_helper.h>
+#include <open_cdm_mediaengine_com.h>
+#else	//chrome
 #include "media/cdm/ppapi/external_open_cdm/src/com/common/shmemsem/shmemsem_helper.h"
 #include "media/cdm/ppapi/external_open_cdm/src/mediaengine/open_cdm_mediaengine_com.h"
+#endif
 
 namespace media {
 
@@ -33,20 +38,32 @@ namespace media {
  */
 class RpcCdmMediaengineHandler : public OpenCdmMediaengineCom {
  public:
+#ifdef WPE
+  RpcCdmMediaengineHandler(char *session_id_val, uint32_t session_id_len,
+                           uint8_t *auth_data_val, uint32_t auth_data_len);
+#else	//chrome
   static RpcCdmMediaengineHandler& getInstance();
 
   bool CreateMediaEngineSession(char *session_id_val, uint32_t session_id_len,
                            uint8_t *auth_data_val, uint32_t auth_data_len);
+#endif
   DecryptResponse Decrypt(const uint8_t *pbIv, uint32_t cbIv,
                                   const uint8_t *pbData, uint32_t cbData,
                                   uint8_t *out, uint32_t &out_size) override;
+#ifdef WPE
+  int ReleaseMem() override;
+#endif
   //TODO (sph): make out const
   ~RpcCdmMediaengineHandler() override;
 
  private:
+#ifdef WPE
+  MediaEngineSessionId sessionId;
+#else	//chrome
   RpcCdmMediaengineHandler();
   RpcCdmMediaengineHandler(RpcCdmMediaengineHandler const&);
   void operator=(RpcCdmMediaengineHandler const&);
+#endif
 
   CLIENT *rpcClient;
 

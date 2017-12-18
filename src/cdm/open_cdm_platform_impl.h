@@ -18,10 +18,17 @@
 #define MEDIA_CDM_PPAPI_EXTERNAL_OPEN_CDM_CDM_OPEN_CDM_PLATFORM_IMPL_H_
 
 #include <string>
+#if WPE
+#include "open_cdm_platform_common.h"
+#include "open_cdm_platform_com_callback_receiver.h"
+#include "open_cdm_platform.h"
+#include "open_cdm_platform_com.h"
+#else	//Chrome
 #include "media/cdm/ppapi/external_open_cdm/src/cdm/open_cdm_platform_common.h"
 #include "media/cdm/ppapi/external_open_cdm/src/cdm/open_cdm_platform_com_callback_receiver.h"
 #include "media/cdm/ppapi/external_open_cdm/src/cdm/open_cdm_platform.h"
 #include "media/cdm/ppapi/external_open_cdm/src/cdm/open_cdm_platform_com.h"
+#endif
 
 namespace media {
 
@@ -34,30 +41,70 @@ class OpenCdmPlatformImpl : public OpenCdmPlatform,
   // EME equivalent: new MediaKeys()
   MediaKeysResponse MediaKeys(std::string key_system) override;
 
+#if WPE
   // EME equivalent: media_keys_.createSession()
+  MediaKeysCreateSessionResponse MediaKeysCreateSession(
+      int license_type, const std::string& init_data_type,
+      const uint8_t* init_data, int init_data_length) override;
+#else	//chrome
   MediaKeysCreateSessionResponse MediaKeysCreateSession(
       const std::string& init_data_type, const uint8_t* init_data,
       int init_data_length) override;
+#endif
 
   // EME equivalent: media_keys_.loadSession()
+#if WPE
+  MediaKeySessionLoadResponse MediaKeySessionLoad(
+      char *session_id_val, uint32_t session_id_len) override;
+#endif
   MediaKeysLoadSessionResponse MediaKeysLoadSession(
       char *session_id_val, uint32_t session_id_len) override;
 
+#ifdef WPE
   // EME equivalent: media_key_session_.update()
   MediaKeySessionUpdateResponse MediaKeySessionUpdate(
+      const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,
+      uint32_t session_id_len) override;
+#else
+   MediaKeySessionUpdateResponse MediaKeySessionUpdate(
       const uint8 *pbKey, uint32 cbKey, char *session_id_val,
       uint32_t session_id_len) override;
+#endif
+#if WPE
+  // EME equivalent: media_key_.set_server_certificate()
+  MediaKeySetServerCertificateResponse MediaKeySetServerCertificate(
+      const uint8_t *pbServerCert, uint32_t cbServerCert) override;
 
-  // EME equivalent: media_key_session_.release()
-  MediaKeySessionReleaseResponse MediaKeySessionRelease(
+  // EME equivalent: media_key_session_.remove()
+  MediaKeySessionRemoveResponse MediaKeySessionRemove(
       char *session_id_val, uint32_t session_id_len) override;
 
+  // EME equivalent: media_key_session_.close()
+  MediaKeySessionCloseResponse MediaKeySessionClose(
+      char *session_id_val, uint32_t session_id_len) override;
+#endif  
+
+
+// EME equivalent: media_key_session_.release()
+  MediaKeySessionReleaseResponse MediaKeySessionRelease(
+      char *session_id_val, uint32_t session_id_len) override;
+#if WPE
+  //EME equivalent : media_key_.isTypeSupported()
+  MediaKeyTypeResponse IsTypeSupported(const std::string&,
+                                            const std::string&) override;
+#endif
   // OpenCdmComCallbackReceiver inheritance
   void ErrorCallback(OpenCdmPlatformSessionId platform_session_id,
                              uint32_t sys_err, std::string err_msg) override;
+#ifdef WPE
+  void MessageCallback(OpenCdmPlatformSessionId platform_session_id,
+                               std::string&  message,
+                               std::string destination_url) override;
+#else	//chrome
   void MessageCallback(OpenCdmPlatformSessionId platform_session_id,
                                std::string message,
                                std::string destination_url) override;
+#endif
   void OnKeyStatusUpdateCallback(OpenCdmPlatformSessionId platform_session_id,
                                std::string message) override;
   void ReadyCallback(OpenCdmPlatformSessionId platform_session_id) override;
