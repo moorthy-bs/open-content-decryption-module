@@ -56,9 +56,10 @@ class OpenCdmPlatformImpl : public OpenCdmPlatform,
 #if WPE
   MediaKeySessionLoadResponse MediaKeySessionLoad(
       char *session_id_val, uint32_t session_id_len) override;
-#endif
+#else
   MediaKeysLoadSessionResponse MediaKeysLoadSession(
       char *session_id_val, uint32_t session_id_len) override;
+#endif
 
 #ifdef WPE
   // EME equivalent: media_key_session_.update()

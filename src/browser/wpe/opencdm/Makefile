@@ -56,7 +56,7 @@ all: ocdm install
 ocdm: $(OCDM_OBJECTS_C)  $(OCDM_OBJECTS_CC)  ${OCDM_OBJECTS_CPP}
 	@echo "Compiling ..."
 	@mkdir -p $(OCDM_WPE_DIR)/lib
-	$(CXX)  $(CXFLAGS) $(CFLAGS_L)  -shared   -o $(OCDM_WPE_DIR)/lib/lib$@.so   ${OCDM_OBJECTS_C}  ${OCDM_OBJECTS_CC} ${OCDM_OBJECTS_CPP}
+	$(CXX)  ${OCDM_OBJECTS_C}  ${OCDM_OBJECTS_CC} ${OCDM_OBJECTS_CPP} -shared -o $(OCDM_WPE_DIR)/lib/lib$@.so
 
 %.o: %.c
 	$(CC) $(CFLAGS)  $(CFLAGS_L) -o $@ -c $<

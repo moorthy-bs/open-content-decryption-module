@@ -73,7 +73,7 @@ MediaKeySessionLoadResponse OpenCdmPlatformImpl::MediaKeySessionLoad(
 
   return response;
 }
-#endif
+#else
 MediaKeysLoadSessionResponse OpenCdmPlatformImpl::MediaKeysLoadSession(
     char *session_id_val, uint32_t session_id_len) {
   CDM_DLOG() << "OpenCdmPlatformCdmiImpl::MediaKeysLoadSession";
@@ -83,6 +83,7 @@ MediaKeysLoadSessionResponse OpenCdmPlatformImpl::MediaKeysLoadSession(
 
   return response;
 }
+#endif
 #if WPE
 MediaKeySessionUpdateResponse OpenCdmPlatformImpl::MediaKeySessionUpdate(
     const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,

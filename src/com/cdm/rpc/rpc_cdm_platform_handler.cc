@@ -590,7 +590,7 @@ MediaKeySessionLoadResponse RpcCdmPlatformHandler::MediaKeySessionLoad(
 
   return response;
 }
-#endif
+#else
 MediaKeysLoadSessionResponse RpcCdmPlatformHandler::MediaKeysLoadSession(
     char *session_id_val, uint32_t session_id_len) {
   CDM_DLOG() << "RpcCdmPlatformHandler::MediaKeysLoadSession";
@@ -625,7 +625,7 @@ MediaKeysLoadSessionResponse RpcCdmPlatformHandler::MediaKeysLoadSession(
 
   return response;
 }
-
+#endif
 #ifdef WPE
 MediaKeySessionUpdateResponse RpcCdmPlatformHandler::MediaKeySessionUpdate(
     const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,
