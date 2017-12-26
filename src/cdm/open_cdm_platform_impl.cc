@@ -63,7 +63,7 @@ response = com_handler_->MediaKeysCreateSession(license_type, init_data_type, in
   return response;
 }
 
-#if WPE
+#if 0
 MediaKeySessionLoadResponse OpenCdmPlatformImpl::MediaKeySessionLoad(
     char *session_id_val, uint32_t session_id_len) {
   CDM_DLOG() << "OpenCdmPlatformCdmiImpl::MediaKeySessionLoad";

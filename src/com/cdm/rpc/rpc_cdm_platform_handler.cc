@@ -170,28 +170,28 @@ void RpcCdmPlatformHandler::OnKeyStatusUpdate1SvcDelegate(
 
 void RpcCdmPlatformHandler::OnMessage1Svc(rpc_cb_message *kmm, struct svc_req *)
 {
-#ifdef WPE
+/*#ifdef WPE
   CDM_DLOG() << "on_key_message_1_svc";
   std::string delimiter = "#SPLIT#";
   std::string laURL;
   std::string message;
-#else	//chrome
+#else */	//chrome
   std::string laURL(kmm->destination_url);
   std::string message(kmm->message);
-#endif
+//#endif
   OpenCdmPlatformSessionId session_id;
 
   session_id.session_id_len = kmm->session_id.session_id_len;
   session_id.session_id = kmm->session_id.session_id_val;
 
-#ifdef WPE
+/*#ifdef WPE
   if (kmm->message.message_len > 0){
   std::string s(kmm->message.message_val,kmm->message.message_len);
   laURL = s.substr(0, s.find(delimiter));
 
   message = s.substr(s.find(delimiter) + delimiter.size(), s.size());
   }
-#endif
+#endif*/
   this->callback_receiver_->MessageCallback(session_id, message, laURL);
 }
 
@@ -555,7 +555,7 @@ MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
   return response;
 }
 
-#if WPE
+#if 0
 MediaKeySessionLoadResponse RpcCdmPlatformHandler::MediaKeySessionLoad(
     char *session_id_val, uint32_t session_id_len) {
   CDM_DLOG() << "RpcCdmPlatformHandler::MediaKeySessionLoad";

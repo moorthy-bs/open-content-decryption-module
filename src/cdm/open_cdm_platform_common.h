@@ -68,8 +68,8 @@ struct MediaKeysCreateSessionResponse : public PlatformResponse {
 #endif
 
 #if WPE
-struct MediaKeySessionLoadResponse : public PlatformResponse {
-};
+/*struct MediaKeySessionLoadResponse : public PlatformResponse {
+};*/
 struct MediaKeySessionRemoveResponse : public PlatformResponse {
 };
 struct MediaKeySessionCloseResponse : public PlatformResponse {

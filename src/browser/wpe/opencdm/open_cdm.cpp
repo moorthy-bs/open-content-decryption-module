@@ -134,7 +134,8 @@ int OpenCdm::Load(std::string& responseMsg) {
   CDM_DLOG() << "Load session with info exisiting key.";
   
   m_eState = KEY_SESSION_WAITING_FOR_LOAD_SESSION;
-  MediaKeySessionLoadResponse status = platform_->MediaKeySessionLoad(m_session_id.session_id, m_session_id.session_id_len);
+//  MediaKeySessionLoadResponse status = platform_->MediaKeySessionLoad(m_session_id.session_id, m_session_id.session_id_len);
+  MediaKeysLoadSessionResponse status = platform_->MediaKeysLoadSession(m_session_id.session_id, m_session_id.session_id_len);
   if (status.platform_response ==  PLATFORM_CALL_SUCCESS) {
     CDM_DLOG() << "Load session with info exisiting key complete.";
 

@@ -69,7 +69,7 @@ rpc_open_cdm_mediakeys_create_session_1(rpc_request_create_session *argp, CLIENT
 	return (&clnt_res);
 }
 
-#ifdef WPE
+#if 0
 rpc_response_generic *
 rpc_open_cdm_mediakeysession_load_1(rpc_request_session_load *argp, CLIENT *clnt)
 {
