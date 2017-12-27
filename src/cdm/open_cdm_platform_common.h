@@ -57,19 +57,13 @@ struct MediaKeySetServerCertificateResponse : public PlatformResponse {
 };
 struct MediaKeyTypeResponse : public PlatformResponse {
 };
-struct MediaKeysCreateSessionResponse : public PlatformResponse {
-  OpenCdmPlatformSessionId session_id;
-};
-#else
+#endif
 struct MediaKeysCreateSessionResponse : public PlatformResponse {
   OpenCdmPlatformSessionId session_id;
   std::string licence_req;
 };
-#endif
 
 #if WPE
-/*struct MediaKeySessionLoadResponse : public PlatformResponse {
-};*/
 struct MediaKeySessionRemoveResponse : public PlatformResponse {
 };
 struct MediaKeySessionCloseResponse : public PlatformResponse {

@@ -40,40 +40,17 @@ MediaKeysResponse OpenCdmPlatformImpl::MediaKeys(std::string key_system) {
   return response;
 }
 
-#if WPE 
-MediaKeysCreateSessionResponse OpenCdmPlatformImpl::MediaKeysCreateSession(
-    int license_type, const std::string& init_data_type,
-    const uint8_t* init_data, int init_data_length) {
-#else	// Chrome
 MediaKeysCreateSessionResponse OpenCdmPlatformImpl::MediaKeysCreateSession(
     const std::string& init_data_type, const uint8_t* init_data,
     int init_data_length) {
-#endif
   CDM_DLOG() << "OpenCdmPlatformCdmiImpl::MediaKeysCreateSession";
   MediaKeysCreateSessionResponse response;
 
-#if WPE
-response = com_handler_->MediaKeysCreateSession(license_type, init_data_type, init_data,
-                                                  init_data_length);
-#else
   response = com_handler_->MediaKeysCreateSession(init_data_type, init_data,
                                                   init_data_length);
-#endif
-
   return response;
 }
 
-#if 0
-MediaKeySessionLoadResponse OpenCdmPlatformImpl::MediaKeySessionLoad(
-    char *session_id_val, uint32_t session_id_len) {
-  CDM_DLOG() << "OpenCdmPlatformCdmiImpl::MediaKeySessionLoad";
-  MediaKeySessionLoadResponse response;
-
-  response = com_handler_->MediaKeySessionLoad(session_id_val, session_id_len);
-
-  return response;
-}
-#else
 MediaKeysLoadSessionResponse OpenCdmPlatformImpl::MediaKeysLoadSession(
     char *session_id_val, uint32_t session_id_len) {
   CDM_DLOG() << "OpenCdmPlatformCdmiImpl::MediaKeysLoadSession";
@@ -83,7 +60,6 @@ MediaKeysLoadSessionResponse OpenCdmPlatformImpl::MediaKeysLoadSession(
 
   return response;
 }
-#endif
 #if WPE
 MediaKeySessionUpdateResponse OpenCdmPlatformImpl::MediaKeySessionUpdate(
     const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,

@@ -41,25 +41,13 @@ class OpenCdmPlatformImpl : public OpenCdmPlatform,
   // EME equivalent: new MediaKeys()
   MediaKeysResponse MediaKeys(std::string key_system) override;
 
-#if WPE
-  // EME equivalent: media_keys_.createSession()
-  MediaKeysCreateSessionResponse MediaKeysCreateSession(
-      int license_type, const std::string& init_data_type,
-      const uint8_t* init_data, int init_data_length) override;
-#else	//chrome
   MediaKeysCreateSessionResponse MediaKeysCreateSession(
       const std::string& init_data_type, const uint8_t* init_data,
       int init_data_length) override;
-#endif
 
   // EME equivalent: media_keys_.loadSession()
-#if 0
-  MediaKeySessionLoadResponse MediaKeySessionLoad(
-      char *session_id_val, uint32_t session_id_len) override;
-#else
   MediaKeysLoadSessionResponse MediaKeysLoadSession(
       char *session_id_val, uint32_t session_id_len) override;
-#endif
 
 #ifdef WPE
   // EME equivalent: media_key_session_.update()

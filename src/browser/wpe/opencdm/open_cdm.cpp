@@ -63,7 +63,6 @@ void OpenCdm::SelectSession(const std::string& session_id_rcvd) {
 
 int OpenCdm::SetServerCertificate(const uint8_t* server_certificate_data,
                                   uint32_t server_certificate_data_size) {
-//  MediaKeysLoadSessionResponse ret = platform_->MediaKeySetServerCertificate((uint8_t*)server_certificate_data, server_certificate_data_size);
   MediaKeySetServerCertificateResponse ret = platform_->MediaKeySetServerCertificate((uint8_t*)server_certificate_data, server_certificate_data_size);
   if (ret.platform_response ==  PLATFORM_CALL_SUCCESS)
     return (true);
@@ -75,7 +74,7 @@ int OpenCdm::CreateSession(const std::string& initDataType, unsigned char* pbIni
   int ret = 1;
   m_eState = KEY_SESSION_INIT;
   CDM_DLOG() << " Enter : CreateSession";
-  MediaKeysCreateSessionResponse response = platform_->MediaKeysCreateSession((int32_t)licenseType, initDataType, pbInitData, cbInitData);
+  MediaKeysCreateSessionResponse response = platform_->MediaKeysCreateSession(initDataType, pbInitData, cbInitData);
   CDM_DLOG() << "Contin : CreateSession ";
   if (response.platform_response == PLATFORM_CALL_SUCCESS) {
     CDM_DLOG() << "New Session created";
@@ -134,7 +133,6 @@ int OpenCdm::Load(std::string& responseMsg) {
   CDM_DLOG() << "Load session with info exisiting key.";
   
   m_eState = KEY_SESSION_WAITING_FOR_LOAD_SESSION;
-//  MediaKeySessionLoadResponse status = platform_->MediaKeySessionLoad(m_session_id.session_id, m_session_id.session_id_len);
   MediaKeysLoadSessionResponse status = platform_->MediaKeysLoadSession(m_session_id.session_id, m_session_id.session_id_len);
   if (status.platform_response ==  PLATFORM_CALL_SUCCESS) {
     CDM_DLOG() << "Load session with info exisiting key complete.";
@@ -169,14 +167,9 @@ int OpenCdm::Load(std::string& responseMsg) {
 }
 
 int OpenCdm::Update(uint8_t* pbResponse, int cbResponse, std::string& responseMsg) {
-//int OpenCdm::Update(unsigned char* pbResponse, int cbResponse, std::string& responseMsg) {
   CDM_DLOG() << "Update >> invoked from ocdm :: estate = " << m_eState << "\n";
 
   int ret = 1;
-  CDM_DLOG() << "Start ";
-  for(int i = 0; i < cbResponse; i++)
-    cout << hex <<pbResponse[i] <<" ";
-  CDM_DLOG() << "\nEnd";
   CDM_DLOG() << "Update session with info from server.";
   platform_->MediaKeySessionUpdate((uint8_t*)pbResponse, cbResponse, m_session_id.session_id, m_session_id.session_id_len);
   CDM_DLOG() << "Update session with info from server complete.";

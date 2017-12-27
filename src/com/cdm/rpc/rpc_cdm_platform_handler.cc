@@ -170,29 +170,14 @@ void RpcCdmPlatformHandler::OnKeyStatusUpdate1SvcDelegate(
 
 void RpcCdmPlatformHandler::OnMessage1Svc(rpc_cb_message *kmm, struct svc_req *)
 {
-/*#ifdef WPE
-  CDM_DLOG() << "on_key_message_1_svc";
-  std::string delimiter = "#SPLIT#";
-  std::string laURL;
-  std::string message;
-#else */	//chrome
-  std::string laURL(kmm->destination_url);
+ std::string laURL(kmm->destination_url);
   std::string message(kmm->message);
-//#endif
   OpenCdmPlatformSessionId session_id;
 
   session_id.session_id_len = kmm->session_id.session_id_len;
   session_id.session_id = kmm->session_id.session_id_val;
 
-/*#ifdef WPE
-  if (kmm->message.message_len > 0){
-  std::string s(kmm->message.message_val,kmm->message.message_len);
-  laURL = s.substr(0, s.find(delimiter));
-
-  message = s.substr(s.find(delimiter) + delimiter.size(), s.size());
-  }
-#endif*/
-  this->callback_receiver_->MessageCallback(session_id, message, laURL);
+ this->callback_receiver_->MessageCallback(session_id, message, laURL);
 }
 
 void RpcCdmPlatformHandler::OnReady1SvcDelegate(rpc_cb_ready *keyready_param, struct svc_req *rqstp, RpcCdmPlatformHandler *p_instance)
@@ -468,15 +453,11 @@ MediaKeySetServerCertificateResponse RpcCdmPlatformHandler::MediaKeySetServerCer
   free(rpc_param.certificate.certificate_val);
   return response;
 }
+#endif
 
-MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
-    int license_type, const std::string& init_data_type, const uint8_t* init_data,
-    int init_data_length)
-#else
 MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
     const std::string& init_data_type, const uint8_t* init_data,
     int init_data_length)
-#endif
 {
   CDM_DLOG() << "RpcCdmPlatformHandler::MediaKeysCreateSession";
   MediaKeysCreateSessionResponse response;
@@ -490,9 +471,7 @@ MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
   }
   rpc_response_create_session *rpc_response;
   rpc_request_create_session rpc_param;
-#ifdef WPE
   rpc_param.license_type = license_type;
-#endif
   rpc_param.init_data_type.init_data_type_val = reinterpret_cast<char *>(malloc(
       init_data_type.size()));
   memcpy(rpc_param.init_data_type.init_data_type_val, init_data_type.c_str(),
@@ -537,12 +516,8 @@ MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
     session_id.session_id_len = rpc_response->session_id.session_id_len;
     response.session_id = session_id;
 
-#ifdef WPE
-  rpc_param.license_type = license_type;
-#else
     response.licence_req  = std::string(rpc_response->licence_req.licence_req_val,
         rpc_response->licence_req.licence_req_len);
-#endif
   } else {
     response.platform_response = PLATFORM_CALL_FAIL;
     CDM_DLOG() << "MediaKeys_CreateSession failed\n ";
@@ -555,42 +530,6 @@ MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
   return response;
 }
 
-#if 0
-MediaKeySessionLoadResponse RpcCdmPlatformHandler::MediaKeySessionLoad(
-    char *session_id_val, uint32_t session_id_len) {
-  CDM_DLOG() << "RpcCdmPlatformHandler::MediaKeySessionLoad";
-  MediaKeySessionLoadResponse response;
-
-  rpc_response_generic *rpc_response;
-  rpc_request_session_load rpc_param;
-
-  // rpc not ready
-  if (com_state == FAULTY) {
-    response.platform_response = PLATFORM_CALL_FAIL;
-    CDM_DLOG()
-    << "RpcCdmPlatformHandler::MediaKeySessionLoad connection state faulty";
-    return response;
-  }
-
-  rpc_param.session_id.session_id_val = session_id_val;
-  rpc_param.session_id.session_id_len = session_id_len;
-
-  if ((rpc_response = rpc_open_cdm_mediakeysession_load_1(
-      &rpc_param, rpc_client)) == NULL) {
-    clnt_perror(rpc_client, rpc_server_host.c_str());
-  }
-
-  if (rpc_response->platform_val == 0) {
-    CDM_DLOG() << "MediaKeySessionLoad success\n ";
-    response.platform_response = PLATFORM_CALL_SUCCESS;
-  } else {
-    CDM_DLOG() << "MediaKeySessionLoad failed\n ";
-    response.platform_response = PLATFORM_CALL_FAIL;
-  }
-
-  return response;
-}
-#else
 MediaKeysLoadSessionResponse RpcCdmPlatformHandler::MediaKeysLoadSession(
     char *session_id_val, uint32_t session_id_len) {
   CDM_DLOG() << "RpcCdmPlatformHandler::MediaKeysLoadSession";
@@ -625,7 +564,6 @@ MediaKeysLoadSessionResponse RpcCdmPlatformHandler::MediaKeysLoadSession(
 
   return response;
 }
-#endif
 #ifdef WPE
 MediaKeySessionUpdateResponse RpcCdmPlatformHandler::MediaKeySessionUpdate(
     const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,

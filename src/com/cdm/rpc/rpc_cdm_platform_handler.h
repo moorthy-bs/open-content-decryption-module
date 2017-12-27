@@ -47,26 +47,15 @@ class RpcCdmPlatformHandler : public OpenCdmPlatformCom {
   //EME equivalent : media_key_.isTypeSupported()
   MediaKeyTypeResponse IsTypeSupported(const std::string&,
                                             const std::string&) override;
-  // EME equivalent: media_keys_.createSession()
-  MediaKeysCreateSessionResponse MediaKeysCreateSession(
-      int license_type, const std::string& init_data_type,
-      const uint8_t* init_data, int init_data_length) override;
-#else	//chrome
+#endif
   // EME equivalent: media_keys_.createSession()
   MediaKeysCreateSessionResponse MediaKeysCreateSession(
       const std::string& init_data_type, const uint8_t* init_data,
       int init_data_length) override;
-#endif
 
-#if 0
-  // EME equivalent: media_keys_.loadSession()
-   MediaKeySessionLoadResponse  MediaKeySessionLoad(
-      char *session_id_val, uint32_t session_id_len) override;
-#else
-  // EME equivalent: media_keys_.loadSession()
+ // EME equivalent: media_keys_.loadSession()
   MediaKeysLoadSessionResponse MediaKeysLoadSession(
       char *session_id_val, uint32_t session_id_len) override;
-#endif
 
 #ifdef WPE
   // EME equivalent: media_key_session_.update()
