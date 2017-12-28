@@ -354,12 +354,12 @@ MediaKeysResponse RpcCdmPlatformHandler::MediaKeys(std::string key_system) {
     CDM_DLOG() << "cdm_mediakeys_rpc_1 failed\n ";
     response.platform_response = PLATFORM_CALL_FAIL;
   }
-#ifdef WPE
+#if 1
   free(rpc_param.key_system.key_system_val);
 #endif
   return response;
 }
-#ifdef WPE
+#if 1
   //EME equivalent : media_key_.isTypeSupported()
 MediaKeyTypeResponse RpcCdmPlatformHandler::IsTypeSupported(const std::string& key_system,
                                             const std::string& mime_type) {
@@ -471,7 +471,6 @@ MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
   }
   rpc_response_create_session *rpc_response;
   rpc_request_create_session rpc_param;
-  rpc_param.license_type = license_type;
   rpc_param.init_data_type.init_data_type_val = reinterpret_cast<char *>(malloc(
       init_data_type.size()));
   memcpy(rpc_param.init_data_type.init_data_type_val, init_data_type.c_str(),
@@ -522,7 +521,7 @@ MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
     response.platform_response = PLATFORM_CALL_FAIL;
     CDM_DLOG() << "MediaKeys_CreateSession failed\n ";
   }
-#ifdef WPE  
+#if 1
   free(rpc_param.callback_info.hostname.hostname_val);
   free(rpc_param.init_data.init_data_val);
   free(rpc_param.init_data_type.init_data_type_val);
@@ -611,7 +610,7 @@ MediaKeySessionUpdateResponse RpcCdmPlatformHandler::MediaKeySessionUpdate(
   return response;
 }
 
-#if WPE
+#if 1
 MediaKeySessionRemoveResponse RpcCdmPlatformHandler::MediaKeySessionRemove(
     char *session_id_val, uint32_t session_id_len) {
   CDM_DLOG() << "RpcCdmPlatformHandler::MediaKeySessionRemove";

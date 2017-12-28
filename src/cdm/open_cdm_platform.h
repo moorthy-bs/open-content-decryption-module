@@ -18,7 +18,7 @@
 #define MEDIA_CDM_PPAPI_EXTERNAL_OPEN_CDM_CDM_OPEN_CDM_PLATFORM_H_
 
 #include <string>
-#if WPE
+#ifdef WPE
 #include "open_cdm_platform_common.h"
 #include "open_cdm_platform_com_callback_receiver.h"
 #else	//Chromium
@@ -43,7 +43,7 @@ class OpenCdmPlatform {
   virtual MediaKeysLoadSessionResponse MediaKeysLoadSession(
       char *session_id_val, uint32_t session_id_len) = 0;
 
-#if WPE
+#ifdef WPE
   // EME equivalent: media_key_session_.update()
   virtual MediaKeySessionUpdateResponse MediaKeySessionUpdate(
       const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,
@@ -54,7 +54,7 @@ class OpenCdmPlatform {
       uint32_t session_id_len) = 0;
 #endif
 
-#if WPE
+#if 1
   // EME equivalent: media_key_session_.setServerCertificate()
   virtual MediaKeySetServerCertificateResponse MediaKeySetServerCertificate(
       const uint8_t *pbServerCert, uint32_t cbServerCert) = 0;

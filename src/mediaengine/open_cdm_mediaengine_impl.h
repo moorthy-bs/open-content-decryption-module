@@ -49,7 +49,7 @@ class OpenCdmMediaengineImpl : public OpenCdmMediaengine {
   DecryptResponse Decrypt(const uint8_t *pbIv, uint32_t cbIv,
                                   const uint8_t *pbData, uint32_t cbData,
                                   uint8_t *out, uint32_t &out_size) override;
-#ifdef WPE
+#if 1
   int ReleaseMem() override;
 #endif
   ~OpenCdmMediaengineImpl() override;

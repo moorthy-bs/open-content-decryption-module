@@ -191,7 +191,7 @@ RpcCdmMediaengineHandler::~RpcCdmMediaengineHandler() {
   idXchngSem = 0;
   idXchngShMem = 0;
 }
-#ifdef WPE
+#if 1
 int RpcCdmMediaengineHandler::ReleaseMem() {
 
   shMemInfo->idSidShMem = 0;

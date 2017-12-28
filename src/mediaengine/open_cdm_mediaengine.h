@@ -68,7 +68,7 @@ class OpenCdmMediaengine {
   virtual DecryptResponse Decrypt(const uint8_t *pbIv, uint32_t cbIv,
                                   const uint8_t *pbData, uint32_t cbData,
                                   uint8_t *out, uint32_t &out_size) = 0;
-#ifdef WPE
+#if 1
   virtual int ReleaseMem() = 0;
 #endif
  protected:

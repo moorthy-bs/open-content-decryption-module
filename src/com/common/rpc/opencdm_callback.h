@@ -19,14 +19,7 @@ struct rpc_cb_message {
 		u_int session_id_len;
 		char *session_id_val;
 	} session_id;
-/*#ifdef WPE
-	struct {
-		u_int message_len;
-		char *message_val;
-	} message;
-#else */	//chrome
 	char *message;
-//#endif
 	char *destination_url;
 };
 typedef struct rpc_cb_message rpc_cb_message;

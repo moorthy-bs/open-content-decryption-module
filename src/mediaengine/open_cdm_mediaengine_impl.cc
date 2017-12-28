@@ -82,7 +82,7 @@ DecryptResponse OpenCdmMediaengineImpl::Decrypt(const uint8_t *pbIv,
 
   return response;
 }
-#ifdef WPE
+#if 1
 int OpenCdmMediaengineImpl::ReleaseMem() {
   CDM_DLOG() << "OpenCdmMediaengineImpl::ReleaseMem ";
   int response;

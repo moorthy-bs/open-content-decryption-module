@@ -78,7 +78,7 @@ MediaKeySessionUpdateResponse OpenCdmPlatformImpl::MediaKeySessionUpdate(
   return response;
 }
 
-#if WPE
+#if 1
 MediaKeySetServerCertificateResponse OpenCdmPlatformImpl::MediaKeySetServerCertificate(
     const uint8_t *pbServerCert, uint32_t cbServerCert) {
   CDM_DLOG() << "OpenCdmPlatformCdmiImpl::MediaKeysSetServerCertificate";
@@ -123,7 +123,7 @@ MediaKeySessionReleaseResponse OpenCdmPlatformImpl::MediaKeySessionRelease(
   return response;
 }
 
-#if WPE
+#if 1
 MediaKeyTypeResponse OpenCdmPlatformImpl::IsTypeSupported(
     const std::string& keysystem,const std::string& mimeType) {
 

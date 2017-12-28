@@ -69,22 +69,6 @@ rpc_open_cdm_mediakeys_create_session_1(rpc_request_create_session *argp, CLIENT
 	return (&clnt_res);
 }
 
-#if 0
-rpc_response_generic *
-rpc_open_cdm_mediakeysession_load_1(rpc_request_session_load *argp, CLIENT *clnt)
-{
-	static rpc_response_generic clnt_res;
-
-	memset((char *)&clnt_res, 0, sizeof(clnt_res));
-	if (clnt_call (clnt, RPC_OPEN_CDM_MEDIAKEYSESSION_LOAD,
-		(xdrproc_t) xdr_rpc_request_session_load, (caddr_t) argp,
-		(xdrproc_t) xdr_rpc_response_generic, (caddr_t) &clnt_res,
-		TIMEOUT) != RPC_SUCCESS) {
-		return (NULL);
-	}
-	return (&clnt_res);
-}
-#else
 rpc_response_generic *
 rpc_open_cdm_mediakeys_load_session_1(rpc_request_load_session *argp, CLIENT *clnt)
 {
@@ -99,7 +83,6 @@ caddr_t) argp,
 	}
 	return (&clnt_res);
 }
-#endif
 
 rpc_response_generic *
 rpc_open_cdm_mediakeysession_update_1(rpc_request_session_update *argp, CLIENT *clnt)

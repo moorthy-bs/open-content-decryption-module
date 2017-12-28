@@ -59,7 +59,7 @@ class OpenCdmPlatformImpl : public OpenCdmPlatform,
       const uint8 *pbKey, uint32 cbKey, char *session_id_val,
       uint32_t session_id_len) override;
 #endif
-#if WPE
+#if 1
   // EME equivalent: media_key_.set_server_certificate()
   MediaKeySetServerCertificateResponse MediaKeySetServerCertificate(
       const uint8_t *pbServerCert, uint32_t cbServerCert) override;
@@ -77,7 +77,7 @@ class OpenCdmPlatformImpl : public OpenCdmPlatform,
 // EME equivalent: media_key_session_.release()
   MediaKeySessionReleaseResponse MediaKeySessionRelease(
       char *session_id_val, uint32_t session_id_len) override;
-#if WPE
+#if 1
   //EME equivalent : media_key_.isTypeSupported()
   MediaKeyTypeResponse IsTypeSupported(const std::string&,
                                             const std::string&) override;

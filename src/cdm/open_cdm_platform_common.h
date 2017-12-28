@@ -52,7 +52,7 @@ struct OpenCdmPlatformSessionId {
 
 struct MediaKeysResponse : public PlatformResponse {
 };
-#if WPE
+#if 1
 struct MediaKeySetServerCertificateResponse : public PlatformResponse {
 };
 struct MediaKeyTypeResponse : public PlatformResponse {
@@ -63,7 +63,7 @@ struct MediaKeysCreateSessionResponse : public PlatformResponse {
   std::string licence_req;
 };
 
-#if WPE
+#if 1
 struct MediaKeySessionRemoveResponse : public PlatformResponse {
 };
 struct MediaKeySessionCloseResponse : public PlatformResponse {
