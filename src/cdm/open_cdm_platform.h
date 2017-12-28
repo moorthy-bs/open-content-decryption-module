@@ -54,7 +54,6 @@ class OpenCdmPlatform {
       uint32_t session_id_len) = 0;
 #endif
 
-#if 1
   // EME equivalent: media_key_session_.setServerCertificate()
   virtual MediaKeySetServerCertificateResponse MediaKeySetServerCertificate(
       const uint8_t *pbServerCert, uint32_t cbServerCert) = 0;
@@ -70,7 +69,6 @@ class OpenCdmPlatform {
   //EME equivalent : media_key_.isTypeSupported()
   virtual MediaKeyTypeResponse IsTypeSupported(const std::string&,
                                             const std::string&) = 0;
-#endif
   // EME equivalent: media_key_session_.release()
   virtual MediaKeySessionReleaseResponse MediaKeySessionRelease(
       char *session_id_val, uint32_t session_id_len) = 0;

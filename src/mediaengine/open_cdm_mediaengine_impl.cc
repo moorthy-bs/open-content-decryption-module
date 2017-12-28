@@ -82,12 +82,10 @@ DecryptResponse OpenCdmMediaengineImpl::Decrypt(const uint8_t *pbIv,
 
   return response;
 }
-#if 1
 int OpenCdmMediaengineImpl::ReleaseMem() {
   CDM_DLOG() << "OpenCdmMediaengineImpl::ReleaseMem ";
   int response;
   response = media_engine_com_->ReleaseMem();
   return response;
 }
-#endif
 }  // namespace media

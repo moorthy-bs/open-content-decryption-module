@@ -191,7 +191,6 @@ RpcCdmMediaengineHandler::~RpcCdmMediaengineHandler() {
   idXchngSem = 0;
   idXchngShMem = 0;
 }
-#if 1
 int RpcCdmMediaengineHandler::ReleaseMem() {
 
   shMemInfo->idSidShMem = 0;
@@ -205,7 +204,6 @@ int RpcCdmMediaengineHandler::ReleaseMem() {
 
   return 1;
 }
-#endif
 DecryptResponse RpcCdmMediaengineHandler::Decrypt(const uint8_t *pbIv,
                                                   uint32_t cbIv,
                                                   const uint8_t *pbData,

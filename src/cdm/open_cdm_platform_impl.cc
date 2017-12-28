@@ -78,7 +78,6 @@ MediaKeySessionUpdateResponse OpenCdmPlatformImpl::MediaKeySessionUpdate(
   return response;
 }
 
-#if 1
 MediaKeySetServerCertificateResponse OpenCdmPlatformImpl::MediaKeySetServerCertificate(
     const uint8_t *pbServerCert, uint32_t cbServerCert) {
   CDM_DLOG() << "OpenCdmPlatformCdmiImpl::MediaKeysSetServerCertificate";
@@ -110,7 +109,6 @@ MediaKeySessionCloseResponse OpenCdmPlatformImpl::MediaKeySessionClose(
 
   return response;
 }
-#endif
 
 MediaKeySessionReleaseResponse OpenCdmPlatformImpl::MediaKeySessionRelease(
     char *session_id_val, uint32_t session_id_len) {
@@ -123,7 +121,6 @@ MediaKeySessionReleaseResponse OpenCdmPlatformImpl::MediaKeySessionRelease(
   return response;
 }
 
-#if 1
 MediaKeyTypeResponse OpenCdmPlatformImpl::IsTypeSupported(
     const std::string& keysystem,const std::string& mimeType) {
 
@@ -131,7 +128,6 @@ MediaKeyTypeResponse OpenCdmPlatformImpl::IsTypeSupported(
     MediaKeyTypeResponse response = com_handler_->IsTypeSupported(keysystem,mimeType);
     return response;
 }
-#endif
 
 // OpenCdmComCallbackReceiver inheritance
 void OpenCdmPlatformImpl::ErrorCallback(

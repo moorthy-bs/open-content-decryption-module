@@ -158,7 +158,7 @@ void RpcCdmPlatformHandler::OnKeyStatusUpdate1SvcDelegate(
   session_id.session_id = kmm->session_id.session_id_val;
 
 #ifdef WPE
-  //if (kmm->message.message_len > 0)
+  if (strlen(kmm->message) > 0)
       message.assign("KeyUsable");
 #endif
 
@@ -354,12 +354,9 @@ MediaKeysResponse RpcCdmPlatformHandler::MediaKeys(std::string key_system) {
     CDM_DLOG() << "cdm_mediakeys_rpc_1 failed\n ";
     response.platform_response = PLATFORM_CALL_FAIL;
   }
-#if 1
   free(rpc_param.key_system.key_system_val);
-#endif
   return response;
 }
-#if 1
   //EME equivalent : media_key_.isTypeSupported()
 MediaKeyTypeResponse RpcCdmPlatformHandler::IsTypeSupported(const std::string& key_system,
                                             const std::string& mime_type) {
@@ -453,7 +450,6 @@ MediaKeySetServerCertificateResponse RpcCdmPlatformHandler::MediaKeySetServerCer
   free(rpc_param.certificate.certificate_val);
   return response;
 }
-#endif
 
 MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
     const std::string& init_data_type, const uint8_t* init_data,
@@ -521,11 +517,9 @@ MediaKeysCreateSessionResponse RpcCdmPlatformHandler::MediaKeysCreateSession(
     response.platform_response = PLATFORM_CALL_FAIL;
     CDM_DLOG() << "MediaKeys_CreateSession failed\n ";
   }
-#if 1
   free(rpc_param.callback_info.hostname.hostname_val);
   free(rpc_param.init_data.init_data_val);
   free(rpc_param.init_data_type.init_data_type_val);
-#endif
   return response;
 }
 
@@ -610,7 +604,6 @@ MediaKeySessionUpdateResponse RpcCdmPlatformHandler::MediaKeySessionUpdate(
   return response;
 }
 
-#if 1
 MediaKeySessionRemoveResponse RpcCdmPlatformHandler::MediaKeySessionRemove(
     char *session_id_val, uint32_t session_id_len) {
   CDM_DLOG() << "RpcCdmPlatformHandler::MediaKeySessionRemove";
@@ -690,7 +683,6 @@ MediaKeySessionCloseResponse RpcCdmPlatformHandler::MediaKeySessionClose(
 
   return response;
 }
-#endif
 
 MediaKeySessionReleaseResponse RpcCdmPlatformHandler::MediaKeySessionRelease(
     char *session_id_val, uint32_t session_id_len) {
