@@ -5,11 +5,7 @@
 
 struct rpc_cb_message {
     char session_id <>;
-#ifdef WPE
-    char message <>;
-#else	//chrome
     string message <>;
-#endif
     string destination_url <>;
 };
 

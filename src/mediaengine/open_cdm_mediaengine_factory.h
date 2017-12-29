@@ -56,14 +56,14 @@ class OpenCdmMediaengineFactory {
  */
 OpenCdmMediaengine *OpenCdmMediaengineFactory::Create(
     std::string key_system, OpenCdmPlatformSessionId session_id) {
-//  if (key_system == open_cdm_key_system) {
+  if (key_system.compare(open_cdm_key_system)) {
     CDM_DLOG() << "Instantiate OpenCdmMediaengineImpl!";
     return new OpenCdmMediaengineImpl(session_id.session_id,
                                       session_id.session_id_len);
-/*  } else {
+  } else {
     CDM_DLOG() << "Failed to create MediaEngine";
     return NULL;
-  }*/
+  }
 }
 }  // namespace media
 
