@@ -557,15 +557,10 @@ MediaKeysLoadSessionResponse RpcCdmPlatformHandler::MediaKeysLoadSession(
 
   return response;
 }
-#ifdef WPE
-MediaKeySessionUpdateResponse RpcCdmPlatformHandler::MediaKeySessionUpdate(
-    const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,
-    uint32_t session_id_len)
-#else
+
 MediaKeySessionUpdateResponse RpcCdmPlatformHandler::MediaKeySessionUpdate(
     const uint8 *pbKey, uint32 cbKey, char *session_id_val,
     uint32_t session_id_len)
-#endif
 {
   CDM_DLOG() << "RpcCdmPlatformHandler::MediaKeySessionUpdate";
   MediaKeySessionUpdateResponse response;
@@ -691,7 +686,7 @@ MediaKeySessionReleaseResponse RpcCdmPlatformHandler::MediaKeySessionRelease(
 
   rpc_response_generic *rpc_response;
   rpc_request_session_release rpc_param;
-#if WPE
+#ifdef WPE
   if (!rpc_client && ((rpc_client = clnt_create(rpc_server_host.c_str(), OPEN_CDM,
                                 OPEN_CDM_EME_5,
                                 "tcp")) == NULL)) {

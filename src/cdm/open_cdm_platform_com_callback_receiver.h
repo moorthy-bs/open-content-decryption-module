@@ -31,15 +31,10 @@ class OpenCdmPlatformComCallbackReceiver {
 
   virtual void ErrorCallback(OpenCdmPlatformSessionId platform_session_id,
                              uint32_t sys_err, std::string err_msg) = 0;
-#if WPE
-virtual void MessageCallback(OpenCdmPlatformSessionId platform_session_id,
-                               std::string& message,
-                               std::string destination_url) = 0;
-#else	//chrome	
-virtual void MessageCallback(OpenCdmPlatformSessionId platform_session_id,
+
+  virtual void MessageCallback(OpenCdmPlatformSessionId platform_session_id,
                                std::string message,                      
                                std::string destination_url) = 0;
-#endif
   virtual void OnKeyStatusUpdateCallback(OpenCdmPlatformSessionId platform_session_id,
                                std::string message) = 0;
   // TODO(ska): message should be uint8_t*

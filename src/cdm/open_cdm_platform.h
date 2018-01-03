@@ -36,23 +36,18 @@ class OpenCdmPlatform {
   // EME equivalent: new MediaKeys()
   virtual MediaKeysResponse MediaKeys(std::string key_system) = 0;
 
+  // EME equivalent: media_keys_.createSession()
   virtual MediaKeysCreateSessionResponse MediaKeysCreateSession(
       const std::string& init_data_type, const uint8_t* init_data,
       int init_data_length) = 0;
 
+  // EME equivalent: media_keys_.loadSession()
   virtual MediaKeysLoadSessionResponse MediaKeysLoadSession(
       char *session_id_val, uint32_t session_id_len) = 0;
 
-#ifdef WPE
-  // EME equivalent: media_key_session_.update()
-  virtual MediaKeySessionUpdateResponse MediaKeySessionUpdate(
-      const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,
-      uint32_t session_id_len) = 0;
-#else
   virtual MediaKeySessionUpdateResponse MediaKeySessionUpdate(
       const uint8 *pbKey, uint32 cbKey, char *session_id_val,
       uint32_t session_id_len) = 0;
-#endif
 
   // EME equivalent: media_key_session_.setServerCertificate()
   virtual MediaKeySetServerCertificateResponse MediaKeySetServerCertificate(

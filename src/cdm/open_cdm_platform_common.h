@@ -18,10 +18,12 @@
 #define MEDIA_CDM_PPAPI_EXTERNAL_OPEN_CDM_CDM_OPEN_CDM_PLATFORM_COMMON_H_
 
 #include <string>
-#if WPE
+#ifdef WPE
 #include <stddef.h>
 #include <limits.h>
 #include <stdint.h>
+typedef unsigned char      uint8;
+typedef unsigned int       uint32;
 #else	// Chrome
 #include "base/basictypes.h"
 #endif
@@ -38,7 +40,7 @@ enum PLATFORM_CALL_STATE {
 
 struct PlatformResponse {
   PLATFORM_CALL_STATE platform_response;
-#if WPE
+#ifdef WPE
   uint32_t sys_err;
 #else	// Chrome
   int32 sys_err;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#if WPE
+#ifdef WPE
 #include "open_cdm_platform_impl.h"
 #include <open_cdm_platform_com_handler_factory.h>
 #include <cdm_logging.h>
@@ -60,15 +60,10 @@ MediaKeysLoadSessionResponse OpenCdmPlatformImpl::MediaKeysLoadSession(
 
   return response;
 }
-#if WPE
-MediaKeySessionUpdateResponse OpenCdmPlatformImpl::MediaKeySessionUpdate(
-    const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,
-    uint32_t session_id_len) {
-#else
+
 MediaKeySessionUpdateResponse OpenCdmPlatformImpl::MediaKeySessionUpdate(
     const uint8 *pbKey, uint32 cbKey, char *session_id_val,
     uint32_t session_id_len) {
-#endif
   CDM_DLOG() << "OpenCdmPlatformCdmiImpl::MediaKeySessionUpdate";
   MediaKeySessionUpdateResponse response;
 
@@ -136,15 +131,9 @@ void OpenCdmPlatformImpl::ErrorCallback(
   callback_receiver_->ErrorCallback(platform_session_id, sys_err, err_msg);
 }
 
-#if WPE
-void OpenCdmPlatformImpl::MessageCallback(
-    OpenCdmPlatformSessionId platform_session_id, std::string& message,
-    std::string destination_url) {
-#else	//chrome
 void OpenCdmPlatformImpl::MessageCallback(
     OpenCdmPlatformSessionId platform_session_id, std::string message,
     std::string destination_url) {
-#endif
   callback_receiver_->MessageCallback(platform_session_id, message,
                                       destination_url);
 }

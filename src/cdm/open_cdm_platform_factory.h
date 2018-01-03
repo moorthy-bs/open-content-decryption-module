@@ -16,7 +16,7 @@
 
 #ifndef MEDIA_CDM_PPAPI_EXTERNAL_OPEN_CDM_CDM_OPEN_CDM_PLATFORM_FACTORY_H_
 #define MEDIA_CDM_PPAPI_EXTERNAL_OPEN_CDM_CDM_OPEN_CDM_PLATFORM_FACTORY_H_
-#if WPE
+#ifdef WPE
 #include <open_cdm_platform.h>
 #include <open_cdm_platform_impl.h>
 #include <open_cdm_platform_com_callback_receiver.h>

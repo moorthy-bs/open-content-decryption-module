@@ -55,17 +55,10 @@ class RpcCdmPlatformHandler : public OpenCdmPlatformCom {
   MediaKeysLoadSessionResponse MediaKeysLoadSession(
       char *session_id_val, uint32_t session_id_len) override;
 
-#ifdef WPE
-  // EME equivalent: media_key_session_.update()
-  MediaKeySessionUpdateResponse MediaKeySessionUpdate(
-      const uint8_t *pbKey, uint32_t cbKey, char *session_id_val,
-      uint32_t session_id_len) override;
-#else	//chrome
   // EME equivalent: media_key_session_.update()
   MediaKeySessionUpdateResponse MediaKeySessionUpdate(
       const uint8 *pbKey, uint32 cbKey, char *session_id_val,
       uint32_t session_id_len) override;
-#endif
 
   // EME equivalent: media_key_session_.set_server_certificate()
   MediaKeySetServerCertificateResponse MediaKeySetServerCertificate(

@@ -310,7 +310,7 @@ void OpenCdm::ErrorCallback(OpenCdmPlatformSessionId platform_session_id,
 }
 
 void OpenCdm::MessageCallback(OpenCdmPlatformSessionId platform_session_id,
-    std::string& message, std::string destination_url) {
+    std::string message, std::string destination_url) {
 
   CDM_DLOG() << "OpenCdm::MessageCallback:";
   fflush(stdout);

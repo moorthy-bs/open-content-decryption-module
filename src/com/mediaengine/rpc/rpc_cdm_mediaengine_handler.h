@@ -55,9 +55,8 @@ class RpcCdmMediaengineHandler : public OpenCdmMediaengineCom {
   ~RpcCdmMediaengineHandler() override;
 
  private:
-#ifdef WPE
   MediaEngineSessionId sessionId;
-#else	//chrome
+#ifndef WPE	//chrome
   RpcCdmMediaengineHandler();
   RpcCdmMediaengineHandler(RpcCdmMediaengineHandler const&);
   void operator=(RpcCdmMediaengineHandler const&);

@@ -185,9 +185,7 @@ RpcCdmMediaengineHandler::~RpcCdmMediaengineHandler() {
   CDM_DLOG() << "RpcCdmMediaengineHandler destruct!";
   // TODO(ska): is shared memory cleaned up correctly?
   // DeleteSemaphoreSet(idXchngSem);
-#ifdef WPE
   delete [] sessionId.id;
-#endif
   idXchngSem = 0;
   idXchngShMem = 0;
 }

@@ -92,7 +92,7 @@ private:
   void ReadyCallback(OpenCdmPlatformSessionId platform_session_id) override;
   void ErrorCallback(OpenCdmPlatformSessionId platform_session_id,
                      uint32_t sys_err, std::string err_msg) override;
-  void MessageCallback(OpenCdmPlatformSessionId platform_session_id, std::string& message,
+  void MessageCallback(OpenCdmPlatformSessionId platform_session_id, std::string message,
                        std::string destination_url) override;
   void OnKeyStatusUpdateCallback(OpenCdmPlatformSessionId platform_session_id,
                                  std::string message) override;
