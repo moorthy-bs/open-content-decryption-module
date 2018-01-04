@@ -73,6 +73,8 @@ Currently OCDM development is compatible with following Web browers:
  * Linux
 * Opera SDK
  * Linux
+* WPE Browser (support work currently in progress)
+ 
 
 ## Folder Structure
 
